@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBCarritoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Barrios">
+    <Key>
+      <PropertyRef Name="idBarrio" />
+    </Key>
+    <Property Name="idBarrio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Categorias">
+    <Key>
+      <PropertyRef Name="idCategoria" />
+    </Key>
+    <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" />
+    <Property Name="activo" Type="bit" />
+    <Property Name="fechaRegistro" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Imagenes">
+    <Key>
+      <PropertyRef Name="idImagen" />
+    </Key>
+    <Property Name="idImagen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idProducto" Type="int" />
+    <Property Name="rutaImagen" Type="varchar" MaxLength="200" />
+    <Property Name="nombreImagen" Type="varchar" MaxLength="200" />
+  </EntityType>
+  <EntityType Name="Marcas">
+    <Key>
+      <PropertyRef Name="idMarca" />
+    </Key>
+    <Property Name="idMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="descripcion" Type="varchar" MaxLength="100" />
+    <Property Name="activo" Type="bit" />
+    <Property Name="fechaRegistro" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Productos">
+    <Key>
+      <PropertyRef Name="idProducto" />
+    </Key>
+    <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idMarca" Type="int" />
+    <Property Name="idCategoria" Type="int" />
+    <Property Name="nombre" Type="varchar" MaxLength="500" />
+    <Property Name="descripcion" Type="varchar" MaxLength="500" />
+    <Property Name="precio" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="stock" Type="int" />
+    <Property Name="activo" Type="bit" />
+    <Property Name="fechaRegistro" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Provincias">
+    <Key>
+      <PropertyRef Name="idProvincia" />
+    </Key>
+    <Property Name="idProvincia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="Usuarios">
+    <Key>
+      <PropertyRef Name="idUsuario" />
+    </Key>
+    <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="nombre" Type="varchar" MaxLength="100" />
+    <Property Name="apellido" Type="varchar" MaxLength="100" />
+    <Property Name="correo" Type="varchar" MaxLength="100" />
+    <Property Name="clave" Type="varchar" MaxLength="100" />
+    <Property Name="reestablecer" Type="bit" />
+    <Property Name="activo" Type="bit" />
+    <Property Name="fechaRegistro" Type="datetime" />
+    <Property Name="rol" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="Ven_prod">
+    <Key>
+      <PropertyRef Name="idVen_Prod" />
+    </Key>
+    <Property Name="idVen_Prod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idVenta" Type="int" />
+    <Property Name="idProducto" Type="int" />
+    <Property Name="cantidad" Type="int" />
+    <Property Name="total" Type="decimal" Precision="10" Scale="2" />
+  </EntityType>
+  <EntityType Name="Ventas">
+    <Key>
+      <PropertyRef Name="idVenta" />
+    </Key>
+    <Property Name="idVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="idUsuario" Type="int" />
+    <Property Name="idProvincia" Type="int" />
+    <Property Name="idBarrio" Type="int" />
+    <Property Name="cantidadProducto" Type="int" />
+    <Property Name="montoTotal" Type="decimal" Precision="10" Scale="2" />
+    <Property Name="contacto" Type="varchar" MaxLength="50" />
+    <Property Name="telefono" Type="varchar" MaxLength="50" />
+    <Property Name="direccion" Type="varchar" MaxLength="100" />
+    <Property Name="numeroTransaccion" Type="varchar" MaxLength="50" />
+    <Property Name="fechaVenta" Type="datetime" />
+  </EntityType>
+  <Association Name="FK__imagenes__idProd__36B12243">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
+    <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="Imagenes">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__productos__idCat__30F848ED">
+    <End Role="Categorias" Type="Self.Categorias" Multiplicity="0..1" />
+    <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categorias">
+        <PropertyRef Name="idCategoria" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="idCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__productos__idMar__300424B4">
+    <End Role="Marcas" Type="Self.Marcas" Multiplicity="0..1" />
+    <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Marcas">
+        <PropertyRef Name="idMarca" />
+      </Principal>
+      <Dependent Role="Productos">
+        <PropertyRef Name="idMarca" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ven_prod__idProd__45F365D3">
+    <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
+    <End Role="Ven_prod" Type="Self.Ven_prod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Productos">
+        <PropertyRef Name="idProducto" />
+      </Principal>
+      <Dependent Role="Ven_prod">
+        <PropertyRef Name="idProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ven_prod__idVent__44FF419A">
+    <End Role="Ventas" Type="Self.Ventas" Multiplicity="0..1" />
+    <End Role="Ven_prod" Type="Self.Ven_prod" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ventas">
+        <PropertyRef Name="idVenta" />
+      </Principal>
+      <Dependent Role="Ven_prod">
+        <PropertyRef Name="idVenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ventas__idBarrio__412EB0B6">
+    <End Role="Barrios" Type="Self.Barrios" Multiplicity="0..1" />
+    <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Barrios">
+        <PropertyRef Name="idBarrio" />
+      </Principal>
+      <Dependent Role="Ventas">
+        <PropertyRef Name="idBarrio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ventas__idProvin__403A8C7D">
+    <End Role="Provincias" Type="Self.Provincias" Multiplicity="0..1" />
+    <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provincias">
+        <PropertyRef Name="idProvincia" />
+      </Principal>
+      <Dependent Role="Ventas">
+        <PropertyRef Name="idProvincia" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__ventas__idUsuari__3F466844">
+    <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+    <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usuarios">
+        <PropertyRef Name="idUsuario" />
+      </Principal>
+      <Dependent Role="Ventas">
+        <PropertyRef Name="idUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBCarritoModelStoreContainer">
+    <EntitySet Name="Barrios" EntityType="Self.Barrios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Imagenes" EntityType="Self.Imagenes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Marcas" EntityType="Self.Marcas" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Provincias" EntityType="Self.Provincias" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ven_prod" EntityType="Self.Ven_prod" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Ventas" EntityType="Self.Ventas" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__imagenes__idProd__36B12243" Association="Self.FK__imagenes__idProd__36B12243">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="Imagenes" EntitySet="Imagenes" />
+    </AssociationSet>
+    <AssociationSet Name="FK__productos__idCat__30F848ED" Association="Self.FK__productos__idCat__30F848ED">
+      <End Role="Categorias" EntitySet="Categorias" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__productos__idMar__300424B4" Association="Self.FK__productos__idMar__300424B4">
+      <End Role="Marcas" EntitySet="Marcas" />
+      <End Role="Productos" EntitySet="Productos" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ven_prod__idProd__45F365D3" Association="Self.FK__ven_prod__idProd__45F365D3">
+      <End Role="Productos" EntitySet="Productos" />
+      <End Role="Ven_prod" EntitySet="Ven_prod" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ven_prod__idVent__44FF419A" Association="Self.FK__ven_prod__idVent__44FF419A">
+      <End Role="Ventas" EntitySet="Ventas" />
+      <End Role="Ven_prod" EntitySet="Ven_prod" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ventas__idBarrio__412EB0B6" Association="Self.FK__ventas__idBarrio__412EB0B6">
+      <End Role="Barrios" EntitySet="Barrios" />
+      <End Role="Ventas" EntitySet="Ventas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ventas__idProvin__403A8C7D" Association="Self.FK__ventas__idProvin__403A8C7D">
+      <End Role="Provincias" EntitySet="Provincias" />
+      <End Role="Ventas" EntitySet="Ventas" />
+    </AssociationSet>
+    <AssociationSet Name="FK__ventas__idUsuari__3F466844" Association="Self.FK__ventas__idUsuari__3F466844">
+      <End Role="Usuarios" EntitySet="Usuarios" />
+      <End Role="Ventas" EntitySet="Ventas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

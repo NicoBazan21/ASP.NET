@@ -1,0 +1,94 @@
+﻿
+@{
+    ViewBag.Title = "Usuarios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Scripts.Render("~/bundles/complementos/usuarios")
+
+<h2>Usuarios</h2>
+
+<ol class="breadcrumb mb-4">
+    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">Resumen</a></li>
+    <li class="breadcrumb-item active">Usuarios</li>
+</ol>
+
+<div class="card">
+    <div class="card-header">
+        <i class="fas fa-users me-l"></i> Lista de Usuarios
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-12 mb-3">
+                <button type="button" id="botonPiolon" class="btn btn-success">Crear nuevo</button>
+            </div>
+        </div>
+        <hr />
+
+        <table id="tabla" class="display cell-border" style="width:100%">
+            <thead>
+                <tr>
+                    <td>Nombres</td>
+                    <td>Apellidos</td>
+                    <td>Correo</td>
+                    <td>Activo</td>
+                    <td>Rol</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="formModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-dark text-white">
+                <h5 class="modal-title" id="staticBackdropLabel">Usuario</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+
+            <div class="row modal-body d-flex justify-content-around">
+                <div class="col-sm-5 mb-2">
+                    <label for="nombre" class="form-label">Nombre:</label>
+                    <input type="text" id="nombre" placeholder="Inserte nombre:" class="form-control" />
+                </div>
+                <div class="col-sm-5 mb-2">
+                    <label for="apellido" class="form-label">Apellido:</label>
+                    <input type="text" id="apellido" placeholder="Inserte apellido:" class="form-control" />
+                </div>
+                <div class="col-sm-10 mb-2">
+                    <label for="email" class="form-label">Email:</label>
+                    <input type="email" id="email" placeholder="Inserte email:" class="form-control" />
+                </div>
+                <div class="col-sm-5 mb-2">
+                    <label for="activo" class="form-label">Activo:</label>
+                    <select class="form-select">
+                        <option selected>Seleccionar: </option>
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
+                <div class="col-sm-5 mb-2">
+                    <label for="rol" class="form-label">Rol:</label>
+                    <select class="form-select">
+                        <option selected>Seleccionar: </option>
+                        <option value="1">Admin</option>
+                        <option value="0">Cliente</option>
+                    </select>
+                </div>
+
+            </div>
+
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>

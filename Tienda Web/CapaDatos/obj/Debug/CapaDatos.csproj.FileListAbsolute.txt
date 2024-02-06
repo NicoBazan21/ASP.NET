@@ -1,0 +1,15 @@
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\bin\Debug\CapaDatos.dll.config
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\bin\Debug\CapaDatos.dll
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\bin\Debug\CapaDatos.pdb
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\bin\Debug\CapaEntidad.dll
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\bin\Debug\EntityFramework.dll
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\bin\Debug\CapaEntidad.pdb
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\bin\Debug\CapaEntidad.dll.config
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\bin\Debug\EntityFramework.xml
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\obj\Debug\CapaDatos.csproj.AssemblyReference.cache
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\obj\Debug\CapaDatos.csproj.CoreCompileInputs.cache
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\obj\Debug\CapaDatos.csproj.CopyComplete
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\obj\Debug\CapaDatos.dll
+C:\Users\Rene\source\repos\Tienda Web\CapaDatos\obj\Debug\CapaDatos.pdb

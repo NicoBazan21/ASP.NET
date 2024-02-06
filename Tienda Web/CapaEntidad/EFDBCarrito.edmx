@@ -1,0 +1,663 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBCarritoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Barrios">
+          <Key>
+            <PropertyRef Name="idBarrio" />
+          </Key>
+          <Property Name="idBarrio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="activo" Type="bit" />
+          <Property Name="fechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Imagenes">
+          <Key>
+            <PropertyRef Name="idImagen" />
+          </Key>
+          <Property Name="idImagen" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idProducto" Type="int" />
+          <Property Name="rutaImagen" Type="varchar" MaxLength="200" />
+          <Property Name="nombreImagen" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="Marcas">
+          <Key>
+            <PropertyRef Name="idMarca" />
+          </Key>
+          <Property Name="idMarca" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="activo" Type="bit" />
+          <Property Name="fechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idMarca" Type="int" />
+          <Property Name="idCategoria" Type="int" />
+          <Property Name="nombre" Type="varchar" MaxLength="500" />
+          <Property Name="descripcion" Type="varchar" MaxLength="500" />
+          <Property Name="precio" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="stock" Type="int" />
+          <Property Name="activo" Type="bit" />
+          <Property Name="fechaRegistro" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Provincias">
+          <Key>
+            <PropertyRef Name="idProvincia" />
+          </Key>
+          <Property Name="idProvincia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" />
+          <Property Name="apellido" Type="varchar" MaxLength="100" />
+          <Property Name="correo" Type="varchar" MaxLength="100" />
+          <Property Name="clave" Type="varchar" MaxLength="100" />
+          <Property Name="reestablecer" Type="bit" />
+          <Property Name="activo" Type="bit" />
+          <Property Name="fechaRegistro" Type="datetime" />
+          <Property Name="rol" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Ven_prod">
+          <Key>
+            <PropertyRef Name="idVen_Prod" />
+          </Key>
+          <Property Name="idVen_Prod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idVenta" Type="int" />
+          <Property Name="idProducto" Type="int" />
+          <Property Name="cantidad" Type="int" />
+          <Property Name="total" Type="decimal" Precision="10" Scale="2" />
+        </EntityType>
+        <EntityType Name="Ventas">
+          <Key>
+            <PropertyRef Name="idVenta" />
+          </Key>
+          <Property Name="idVenta" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idUsuario" Type="int" />
+          <Property Name="idProvincia" Type="int" />
+          <Property Name="idBarrio" Type="int" />
+          <Property Name="cantidadProducto" Type="int" />
+          <Property Name="montoTotal" Type="decimal" Precision="10" Scale="2" />
+          <Property Name="contacto" Type="varchar" MaxLength="50" />
+          <Property Name="telefono" Type="varchar" MaxLength="50" />
+          <Property Name="direccion" Type="varchar" MaxLength="100" />
+          <Property Name="numeroTransaccion" Type="varchar" MaxLength="50" />
+          <Property Name="fechaVenta" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__imagenes__idProd__36B12243">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="Imagenes">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__productos__idCat__30F848ED">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="0..1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__productos__idMar__300424B4">
+          <End Role="Marcas" Type="Self.Marcas" Multiplicity="0..1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marcas">
+              <PropertyRef Name="idMarca" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="idMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ven_prod__idProd__45F365D3">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
+          <End Role="Ven_prod" Type="Self.Ven_prod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="Ven_prod">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ven_prod__idVent__44FF419A">
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="0..1" />
+          <End Role="Ven_prod" Type="Self.Ven_prod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ventas">
+              <PropertyRef Name="idVenta" />
+            </Principal>
+            <Dependent Role="Ven_prod">
+              <PropertyRef Name="idVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ventas__idBarrio__412EB0B6">
+          <End Role="Barrios" Type="Self.Barrios" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barrios">
+              <PropertyRef Name="idBarrio" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="idBarrio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ventas__idProvin__403A8C7D">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincias">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="idProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ventas__idUsuari__3F466844">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBCarritoModelStoreContainer">
+          <EntitySet Name="Barrios" EntityType="Self.Barrios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Imagenes" EntityType="Self.Imagenes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marcas" EntityType="Self.Marcas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Productos" EntityType="Self.Productos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provincias" EntityType="Self.Provincias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ven_prod" EntityType="Self.Ven_prod" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ventas" EntityType="Self.Ventas" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__imagenes__idProd__36B12243" Association="Self.FK__imagenes__idProd__36B12243">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="Imagenes" EntitySet="Imagenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__productos__idCat__30F848ED" Association="Self.FK__productos__idCat__30F848ED">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__productos__idMar__300424B4" Association="Self.FK__productos__idMar__300424B4">
+            <End Role="Marcas" EntitySet="Marcas" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ven_prod__idProd__45F365D3" Association="Self.FK__ven_prod__idProd__45F365D3">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="Ven_prod" EntitySet="Ven_prod" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ven_prod__idVent__44FF419A" Association="Self.FK__ven_prod__idVent__44FF419A">
+            <End Role="Ventas" EntitySet="Ventas" />
+            <End Role="Ven_prod" EntitySet="Ven_prod" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ventas__idBarrio__412EB0B6" Association="Self.FK__ventas__idBarrio__412EB0B6">
+            <End Role="Barrios" EntitySet="Barrios" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ventas__idProvin__403A8C7D" Association="Self.FK__ventas__idProvin__403A8C7D">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ventas__idUsuari__3F466844" Association="Self.FK__ventas__idUsuari__3F466844">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBCarritoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Barrios">
+          <Key>
+            <PropertyRef Name="idBarrio" />
+          </Key>
+          <Property Name="idBarrio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ventas" Relationship="Self.FK__ventas__idBarrio__412EB0B6" FromRole="Barrios" ToRole="Ventas" />
+        </EntityType>
+        <EntityType Name="Categorias">
+          <Key>
+            <PropertyRef Name="idCategoria" />
+          </Key>
+          <Property Name="idCategoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+          <Property Name="fechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK__productos__idCat__30F848ED" FromRole="Categorias" ToRole="Productos" />
+        </EntityType>
+        <EntityType Name="Imagenes">
+          <Key>
+            <PropertyRef Name="idImagen" />
+          </Key>
+          <Property Name="idImagen" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idProducto" Type="Int32" />
+          <Property Name="rutaImagen" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="nombreImagen" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK__imagenes__idProd__36B12243" FromRole="Imagenes" ToRole="Productos" />
+        </EntityType>
+        <EntityType Name="Marcas">
+          <Key>
+            <PropertyRef Name="idMarca" />
+          </Key>
+          <Property Name="idMarca" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="activo" Type="Boolean" />
+          <Property Name="fechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK__productos__idMar__300424B4" FromRole="Marcas" ToRole="Productos" />
+        </EntityType>
+        <EntityType Name="Productos">
+          <Key>
+            <PropertyRef Name="idProducto" />
+          </Key>
+          <Property Name="idProducto" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idMarca" Type="Int32" />
+          <Property Name="idCategoria" Type="Int32" />
+          <Property Name="nombre" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="descripcion" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="precio" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="stock" Type="Int32" />
+          <Property Name="activo" Type="Boolean" />
+          <Property Name="fechaRegistro" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Categorias" Relationship="Self.FK__productos__idCat__30F848ED" FromRole="Productos" ToRole="Categorias" />
+          <NavigationProperty Name="Imagenes" Relationship="Self.FK__imagenes__idProd__36B12243" FromRole="Productos" ToRole="Imagenes" />
+          <NavigationProperty Name="Marcas" Relationship="Self.FK__productos__idMar__300424B4" FromRole="Productos" ToRole="Marcas" />
+          <NavigationProperty Name="Ven_prod" Relationship="Self.FK__ven_prod__idProd__45F365D3" FromRole="Productos" ToRole="Ven_prod" />
+        </EntityType>
+        <EntityType Name="Provincias">
+          <Key>
+            <PropertyRef Name="idProvincia" />
+          </Key>
+          <Property Name="idProvincia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ventas" Relationship="Self.FK__ventas__idProvin__403A8C7D" FromRole="Provincias" ToRole="Ventas" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="apellido" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="correo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="clave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="reestablecer" Type="Boolean" />
+          <Property Name="activo" Type="Boolean" />
+          <Property Name="fechaRegistro" Type="DateTime" Precision="3" />
+          <Property Name="rol" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Ventas" Relationship="Self.FK__ventas__idUsuari__3F466844" FromRole="Usuarios" ToRole="Ventas" />
+        </EntityType>
+        <EntityType Name="Ven_prod">
+          <Key>
+            <PropertyRef Name="idVen_Prod" />
+          </Key>
+          <Property Name="idVen_Prod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idVenta" Type="Int32" />
+          <Property Name="idProducto" Type="Int32" />
+          <Property Name="cantidad" Type="Int32" />
+          <Property Name="total" Type="Decimal" Precision="10" Scale="2" />
+          <NavigationProperty Name="Productos" Relationship="Self.FK__ven_prod__idProd__45F365D3" FromRole="Ven_prod" ToRole="Productos" />
+          <NavigationProperty Name="Ventas" Relationship="Self.FK__ven_prod__idVent__44FF419A" FromRole="Ven_prod" ToRole="Ventas" />
+        </EntityType>
+        <EntityType Name="Ventas">
+          <Key>
+            <PropertyRef Name="idVenta" />
+          </Key>
+          <Property Name="idVenta" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idUsuario" Type="Int32" />
+          <Property Name="idProvincia" Type="Int32" />
+          <Property Name="idBarrio" Type="Int32" />
+          <Property Name="cantidadProducto" Type="Int32" />
+          <Property Name="montoTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="contacto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="numeroTransaccion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="fechaVenta" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Barrios" Relationship="Self.FK__ventas__idBarrio__412EB0B6" FromRole="Ventas" ToRole="Barrios" />
+          <NavigationProperty Name="Provincias" Relationship="Self.FK__ventas__idProvin__403A8C7D" FromRole="Ventas" ToRole="Provincias" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK__ventas__idUsuari__3F466844" FromRole="Ventas" ToRole="Usuarios" />
+          <NavigationProperty Name="Ven_prod" Relationship="Self.FK__ven_prod__idVent__44FF419A" FromRole="Ventas" ToRole="Ven_prod" />
+        </EntityType>
+        <Association Name="FK__ventas__idBarrio__412EB0B6">
+          <End Role="Barrios" Type="Self.Barrios" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barrios">
+              <PropertyRef Name="idBarrio" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="idBarrio" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__productos__idCat__30F848ED">
+          <End Role="Categorias" Type="Self.Categorias" Multiplicity="0..1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categorias">
+              <PropertyRef Name="idCategoria" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="idCategoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__imagenes__idProd__36B12243">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
+          <End Role="Imagenes" Type="Self.Imagenes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="Imagenes">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__productos__idMar__300424B4">
+          <End Role="Marcas" Type="Self.Marcas" Multiplicity="0..1" />
+          <End Role="Productos" Type="Self.Productos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marcas">
+              <PropertyRef Name="idMarca" />
+            </Principal>
+            <Dependent Role="Productos">
+              <PropertyRef Name="idMarca" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ven_prod__idProd__45F365D3">
+          <End Role="Productos" Type="Self.Productos" Multiplicity="0..1" />
+          <End Role="Ven_prod" Type="Self.Ven_prod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Productos">
+              <PropertyRef Name="idProducto" />
+            </Principal>
+            <Dependent Role="Ven_prod">
+              <PropertyRef Name="idProducto" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ventas__idProvin__403A8C7D">
+          <End Role="Provincias" Type="Self.Provincias" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provincias">
+              <PropertyRef Name="idProvincia" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="idProvincia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ventas__idUsuari__3F466844">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="0..1" />
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="idUsuario" />
+            </Principal>
+            <Dependent Role="Ventas">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__ven_prod__idVent__44FF419A">
+          <End Role="Ventas" Type="Self.Ventas" Multiplicity="0..1" />
+          <End Role="Ven_prod" Type="Self.Ven_prod" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ventas">
+              <PropertyRef Name="idVenta" />
+            </Principal>
+            <Dependent Role="Ven_prod">
+              <PropertyRef Name="idVenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DBCarrito" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Barrios" EntityType="Self.Barrios" />
+          <EntitySet Name="Categorias" EntityType="Self.Categorias" />
+          <EntitySet Name="Imagenes" EntityType="Self.Imagenes" />
+          <EntitySet Name="Marcas" EntityType="Self.Marcas" />
+          <EntitySet Name="Productos" EntityType="Self.Productos" />
+          <EntitySet Name="Provincias" EntityType="Self.Provincias" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <EntitySet Name="Ven_prod" EntityType="Self.Ven_prod" />
+          <EntitySet Name="Ventas" EntityType="Self.Ventas" />
+          <AssociationSet Name="FK__ventas__idBarrio__412EB0B6" Association="Self.FK__ventas__idBarrio__412EB0B6">
+            <End Role="Barrios" EntitySet="Barrios" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__productos__idCat__30F848ED" Association="Self.FK__productos__idCat__30F848ED">
+            <End Role="Categorias" EntitySet="Categorias" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__imagenes__idProd__36B12243" Association="Self.FK__imagenes__idProd__36B12243">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="Imagenes" EntitySet="Imagenes" />
+          </AssociationSet>
+          <AssociationSet Name="FK__productos__idMar__300424B4" Association="Self.FK__productos__idMar__300424B4">
+            <End Role="Marcas" EntitySet="Marcas" />
+            <End Role="Productos" EntitySet="Productos" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ven_prod__idProd__45F365D3" Association="Self.FK__ven_prod__idProd__45F365D3">
+            <End Role="Productos" EntitySet="Productos" />
+            <End Role="Ven_prod" EntitySet="Ven_prod" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ventas__idProvin__403A8C7D" Association="Self.FK__ventas__idProvin__403A8C7D">
+            <End Role="Provincias" EntitySet="Provincias" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ventas__idUsuari__3F466844" Association="Self.FK__ventas__idUsuari__3F466844">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Ventas" EntitySet="Ventas" />
+          </AssociationSet>
+          <AssociationSet Name="FK__ven_prod__idVent__44FF419A" Association="Self.FK__ven_prod__idVent__44FF419A">
+            <End Role="Ventas" EntitySet="Ventas" />
+            <End Role="Ven_prod" EntitySet="Ven_prod" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBCarritoModelStoreContainer" CdmEntityContainer="DBCarrito">
+          <EntitySetMapping Name="Barrios">
+            <EntityTypeMapping TypeName="DBCarritoModel.Barrios">
+              <MappingFragment StoreEntitySet="Barrios">
+                <ScalarProperty Name="idBarrio" ColumnName="idBarrio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Categorias">
+            <EntityTypeMapping TypeName="DBCarritoModel.Categorias">
+              <MappingFragment StoreEntitySet="Categorias">
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Imagenes">
+            <EntityTypeMapping TypeName="DBCarritoModel.Imagenes">
+              <MappingFragment StoreEntitySet="Imagenes">
+                <ScalarProperty Name="idImagen" ColumnName="idImagen" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="rutaImagen" ColumnName="rutaImagen" />
+                <ScalarProperty Name="nombreImagen" ColumnName="nombreImagen" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marcas">
+            <EntityTypeMapping TypeName="DBCarritoModel.Marcas">
+              <MappingFragment StoreEntitySet="Marcas">
+                <ScalarProperty Name="idMarca" ColumnName="idMarca" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Productos">
+            <EntityTypeMapping TypeName="DBCarritoModel.Productos">
+              <MappingFragment StoreEntitySet="Productos">
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="idMarca" ColumnName="idMarca" />
+                <ScalarProperty Name="idCategoria" ColumnName="idCategoria" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="precio" ColumnName="precio" />
+                <ScalarProperty Name="stock" ColumnName="stock" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provincias">
+            <EntityTypeMapping TypeName="DBCarritoModel.Provincias">
+              <MappingFragment StoreEntitySet="Provincias">
+                <ScalarProperty Name="idProvincia" ColumnName="idProvincia" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="DBCarritoModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="DBCarritoModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="correo" ColumnName="correo" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
+                <ScalarProperty Name="reestablecer" ColumnName="reestablecer" />
+                <ScalarProperty Name="activo" ColumnName="activo" />
+                <ScalarProperty Name="fechaRegistro" ColumnName="fechaRegistro" />
+                <ScalarProperty Name="rol" ColumnName="rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ven_prod">
+            <EntityTypeMapping TypeName="DBCarritoModel.Ven_prod">
+              <MappingFragment StoreEntitySet="Ven_prod">
+                <ScalarProperty Name="idVen_Prod" ColumnName="idVen_Prod" />
+                <ScalarProperty Name="idVenta" ColumnName="idVenta" />
+                <ScalarProperty Name="idProducto" ColumnName="idProducto" />
+                <ScalarProperty Name="cantidad" ColumnName="cantidad" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ventas">
+            <EntityTypeMapping TypeName="DBCarritoModel.Ventas">
+              <MappingFragment StoreEntitySet="Ventas">
+                <ScalarProperty Name="idVenta" ColumnName="idVenta" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="idProvincia" ColumnName="idProvincia" />
+                <ScalarProperty Name="idBarrio" ColumnName="idBarrio" />
+                <ScalarProperty Name="cantidadProducto" ColumnName="cantidadProducto" />
+                <ScalarProperty Name="montoTotal" ColumnName="montoTotal" />
+                <ScalarProperty Name="contacto" ColumnName="contacto" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="direccion" ColumnName="direccion" />
+                <ScalarProperty Name="numeroTransaccion" ColumnName="numeroTransaccion" />
+                <ScalarProperty Name="fechaVenta" ColumnName="fechaVenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
